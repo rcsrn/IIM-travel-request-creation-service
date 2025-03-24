@@ -12,7 +12,7 @@
 	<artifactId>persistency</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>persistency</name>
-	<description>Service to information related to travel requests made by users</description>
+	<description>Service to persist information related to travel requests made by users</description>
 	<url/>
 	<licenses>
 		<license/>
