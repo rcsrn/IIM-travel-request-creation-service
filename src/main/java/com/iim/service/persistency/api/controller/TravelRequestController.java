@@ -1,7 +1,6 @@
 package com.iim.service.persistency.api.controller;
 
 import com.iim.service.persistency.api.dto.CreateTravelRequestDTO;
-import com.iim.service.persistency.api.entity.TravelRequest;
 import com.iim.service.persistency.api.service.TravelRequestService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.iim.service.persistency.api.constant.Paths.baseUrl;
 

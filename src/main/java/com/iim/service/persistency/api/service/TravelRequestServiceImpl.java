@@ -9,6 +9,6 @@ public class TravelRequestServiceImpl implements TravelRequestService{
 
     @Override
     public void createTravelRequest(CreateTravelRequestDTO input) {
-
+        
     }
 }

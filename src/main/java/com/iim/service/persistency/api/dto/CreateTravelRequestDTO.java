@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
-import static com.iim.service.persistency.api.constant.Constants.MAX_CONCEPT_LIST_SIZE_MESSAGE;
+import static com.iim.service.persistency.api.constant.ValidationMessages.MAX_CONCEPT_LIST_SIZE_MESSAGE;
 
 @Data
 public class CreateTravelRequestDTO {

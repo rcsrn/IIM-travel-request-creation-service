@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import java.time.LocalDateTime;
 
-import static com.iim.service.persistency.api.constant.Constants.*;
+import static com.iim.service.persistency.api.constant.ValidationMessages.*;
 
 @Data
 public class TravelRequestDTO {

@@ -1,6 +1,6 @@
 package com.iim.service.persistency.api.constant;
 
-public class Constants {
+public class ValidationMessages {
 
     public final static String NO_FIRST_NAME_MESSAGE = "First name is required";
 
