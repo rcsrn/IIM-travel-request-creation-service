@@ -14,5 +14,5 @@ public class CreateTravelRequestDTO {
     private TravelRequestDTO travelRequestDTO;
 
     @Size(max = 4, message = MAX_CONCEPT_LIST_SIZE_MESSAGE)
-    private List<ConceptDTO> conceptDTO;
+    private List<ConceptDTO> concepts;
 }
