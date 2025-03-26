@@ -36,7 +36,7 @@ public class TravelRequestServiceImpl implements TravelRequestService{
     private final static EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
     @Override
-    public void createTravelRequest(CreateTravelRequestDTO input) {
+    public TravelRequest createTravelRequest(CreateTravelRequestDTO input) {
         User user = entityMapper.mapToUser(input.getUserDTO());
         TravelRequest travelRequest = entityMapper.mapToTravelRequest(input.getTravelRequestDTO());
         Subtotal subtotals = calculateSubtotals(input.getConcepts());
@@ -49,6 +49,8 @@ public class TravelRequestServiceImpl implements TravelRequestService{
         TravelRequest travelRequestSaved = travelRequestRepository.save(travelRequest);
         saveSubtotals(subtotals, travelRequestSaved);
         saveConcepts(input.getConcepts(), travelRequestSaved);
+
+        return travelRequestSaved;
     }
 
     private void saveSubtotals(Subtotal subtotals, TravelRequest travelRequest) {
