@@ -7,12 +7,18 @@ import com.iim.service.persistency.api.entity.Concept;
 import com.iim.service.persistency.api.entity.TravelRequest;
 import com.iim.service.persistency.api.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper
 public interface EntityMapper {
     User mapToUser(UserDTO input);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "totalPrice", ignore = true)
     TravelRequest mapToTravelRequest(TravelRequestDTO input);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "travelRequest", ignore = true)
     Concept mapToConcept(ConceptDTO input);
 }
