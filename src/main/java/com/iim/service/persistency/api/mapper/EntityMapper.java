@@ -9,7 +9,7 @@ import com.iim.service.persistency.api.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface EntityMapper {
     @Mapping(target = "id", ignore = true)
     User mapToUser(UserDTO input);
