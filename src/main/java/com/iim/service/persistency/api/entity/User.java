@@ -9,11 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Data
 public class User {
 
     @Id

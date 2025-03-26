@@ -11,6 +11,7 @@ import org.mapstruct.Mapping;
 
 @Mapper
 public interface EntityMapper {
+    @Mapping(target = "id", ignore = true)
     User mapToUser(UserDTO input);
 
     @Mapping(target = "id", ignore = true)
