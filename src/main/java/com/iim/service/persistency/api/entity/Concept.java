@@ -24,11 +24,11 @@ public class Concept {
     @JoinColumn(name = "travel_request_id")
     private TravelRequest travelRequest;
 
-    @Column(name = "project_number")
-    private Long projectNumber;
-
     @Column(name = "concept_type")
     private String conceptType;
+
+    @Column(name = "project_number")
+    private Long projectNumber;
 
     @Column(name = "inscription", precision = 10, scale = 2)
     private BigDecimal inscription;

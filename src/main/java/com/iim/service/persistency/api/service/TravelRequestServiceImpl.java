@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -29,7 +30,38 @@ public class TravelRequestServiceImpl implements TravelRequestService{
         Subtotal subtotal = calculateSubtotal(input.getConcepts());
     }
 
-    private Subtotal calculateSubtotal(List<ConceptDTO> conceptDTO) {
-        return null;
+    private Subtotal calculateSubtotal(List<ConceptDTO> concepts) {
+        if (concepts.isEmpty())
+            return null;
+
+        Subtotal subtotal = new Subtotal();
+        BigDecimal inscription = new BigDecimal("0.0");
+        BigDecimal fare = new BigDecimal("0.0");
+        BigDecimal perDiem = new BigDecimal("0.0");
+
+        for (ConceptDTO concept : concepts) {
+            if (hasNonZeroValue(concept.getInscription())) {
+                inscription = inscription.add(concept.getInscription());
+            }
+            if (hasNonZeroValue(concept.getFare())) {
+                fare = fare.add(concept.getFare());
+            }
+            if (hasNonZeroValue(concept.getPerDiem())) {
+                perDiem = perDiem.add(concept.getPerDiem());
+            }
+        }
+
+        if (hasNonZeroValue(inscription))
+            subtotal.setInscription(inscription);
+        if (hasNonZeroValue(fare))
+            subtotal.setFare(fare);
+        if (hasNonZeroValue(perDiem))
+            subtotal.setPerDiem(perDiem);
+
+        return subtotal;
+    }
+
+    private boolean hasNonZeroValue(BigDecimal value) {
+        return  (value != null) && !(value.compareTo(BigDecimal.ZERO) == 0);
     }
 }
