@@ -2,15 +2,18 @@ package com.iim.service.persistency.api.service;
 
 import com.iim.service.persistency.api.dto.ConceptDTO;
 import com.iim.service.persistency.api.dto.CreateTravelRequestDTO;
+import com.iim.service.persistency.api.entity.Concept;
 import com.iim.service.persistency.api.entity.Subtotal;
 import com.iim.service.persistency.api.entity.TravelRequest;
 import com.iim.service.persistency.api.entity.User;
 import com.iim.service.persistency.api.mapper.EntityMapper;
+import com.iim.service.persistency.api.repository.ConceptRepository;
+import com.iim.service.persistency.api.repository.SubtotalRepository;
+import com.iim.service.persistency.api.repository.TravelRequestRepository;
 import com.iim.service.persistency.api.repository.UserRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,16 +24,57 @@ public class TravelRequestServiceImpl implements TravelRequestService{
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TravelRequestRepository travelRequestRepository;
+
+    @Autowired
+    private ConceptRepository conceptRepository;
+
+    @Autowired
+    private SubtotalRepository subtotalRepository;
+
     private final static EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
     @Override
     public void createTravelRequest(CreateTravelRequestDTO input) {
         User user = entityMapper.mapToUser(input.getUserDTO());
         TravelRequest travelRequest = entityMapper.mapToTravelRequest(input.getTravelRequestDTO());
-        Subtotal subtotal = calculateSubtotal(input.getConcepts());
+        Subtotal subtotals = calculateSubtotals(input.getConcepts());
+
+        if (subtotals != null)
+            travelRequest.setTotalPrice(calculateTotal(subtotals));
+
+        User userSaved = userRepository.save(user);
+        travelRequest.setUser(userSaved);
+        TravelRequest travelRequestSaved = travelRequestRepository.save(travelRequest);
+        saveSubtotals(subtotals, travelRequestSaved);
+        saveConcepts(input.getConcepts(), travelRequestSaved);
     }
 
-    private Subtotal calculateSubtotal(List<ConceptDTO> concepts) {
+    private void saveSubtotals(Subtotal subtotals, TravelRequest travelRequest) {
+        if (subtotals == null)
+            return;
+        subtotals.setTravelRequest(travelRequest);
+        subtotalRepository.save(subtotals);
+    }
+
+    private void saveConcepts(List<ConceptDTO> conceptDTOS, TravelRequest travelRequest) {
+        if (conceptDTOS.isEmpty())
+            return;
+
+        for (ConceptDTO conceptDTO : conceptDTOS) {
+            Concept concept = entityMapper.mapToConcept(conceptDTO);
+            concept.setTravelRequest(travelRequest);
+            conceptRepository.save(concept);
+        }
+    }
+
+
+    private BigDecimal calculateTotal(Subtotal subtotals) {
+        return subtotals.getInscription().add(subtotals.getFare()).add(subtotals.getPerDiem());
+    }
+
+    private Subtotal calculateSubtotals(List<ConceptDTO> concepts) {
         if (concepts.isEmpty())
             return null;
 
