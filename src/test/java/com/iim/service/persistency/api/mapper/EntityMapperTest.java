@@ -1,4 +1,4 @@
-package com.iim.service.persistency.api.service.mapper;
+package com.iim.service.persistency.api.mapper;
 
 import com.iim.service.persistency.api.dto.ConceptDTO;
 import com.iim.service.persistency.api.dto.TravelRequestDTO;
@@ -6,7 +6,6 @@ import com.iim.service.persistency.api.dto.UserDTO;
 import com.iim.service.persistency.api.entity.Concept;
 import com.iim.service.persistency.api.entity.TravelRequest;
 import com.iim.service.persistency.api.entity.User;
-import com.iim.service.persistency.api.mapper.EntityMapper;
 import com.iim.service.persistency.util.TestDataFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
