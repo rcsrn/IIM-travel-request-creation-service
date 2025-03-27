@@ -12,14 +12,14 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface EntityMapper {
     @Mapping(target = "id", ignore = true)
-    User mapToUser(UserDTO input);
+    User mapUserDtoToUser(UserDTO input);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "totalPrice", ignore = true)
-    TravelRequest mapToTravelRequest(TravelRequestDTO input);
+    TravelRequest mapTravelRequestDtoToTravelRequest(TravelRequestDTO input);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "travelRequest", ignore = true)
-    Concept mapToConcept(ConceptDTO input);
+    Concept mapConceptDtoToConcept(ConceptDTO input);
 }

@@ -43,4 +43,8 @@ public class TestDataFactory {
         return createTravelRequestDTO;
     }
 
+    public static UserDTO buildUserDto() {
+        return podamFactory.manufacturePojo(UserDTO.class);
+    }
+
 }

@@ -37,8 +37,8 @@ public class TravelRequestServiceImpl implements TravelRequestService{
 
     @Override
     public TravelRequest createTravelRequest(CreateTravelRequestDTO input) {
-        User user = entityMapper.mapToUser(input.getUserDTO());
-        TravelRequest travelRequest = entityMapper.mapToTravelRequest(input.getTravelRequestDTO());
+        User user = entityMapper.mapUserDtoToUser(input.getUserDTO());
+        TravelRequest travelRequest = entityMapper.mapTravelRequestDtoToTravelRequest(input.getTravelRequestDTO());
         Subtotal subtotals = calculateSubtotals(input.getConcepts());
 
         if (subtotals != null)
@@ -65,7 +65,7 @@ public class TravelRequestServiceImpl implements TravelRequestService{
             return;
 
         for (ConceptDTO conceptDTO : conceptDTOS) {
-            Concept concept = entityMapper.mapToConcept(conceptDTO);
+            Concept concept = entityMapper.mapConceptDtoToConcept(conceptDTO);
             concept.setTravelRequest(travelRequest);
             conceptRepository.save(concept);
         }

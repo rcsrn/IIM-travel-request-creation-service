@@ -1,6 +1,5 @@
 package com.iim.service.persistency.api.service;
 
-import com.iim.service.persistency.api.dto.CreateTravelRequestDTO;
 import com.iim.service.persistency.api.entity.Concept;
 import com.iim.service.persistency.api.entity.Subtotal;
 import com.iim.service.persistency.api.entity.TravelRequest;
@@ -59,7 +58,7 @@ public class TravelRequestServiceTest {
     @Test
     void createTravelRequest_whenThereAreNotConcepts_ShouldReturnTravelRequest() {
         TravelRequest savedTravelRequest = buildTravelRequest();
-        
+
         Mockito.when(userRepository.save(Mockito.any())).thenReturn(buildUser());
         Mockito.when(travelRequestRepository.save(Mockito.any())).thenReturn(savedTravelRequest);
 
