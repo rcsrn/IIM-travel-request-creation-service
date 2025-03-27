@@ -3,10 +3,13 @@ package com.iim.service.persistency.api.service;
 import com.iim.service.persistency.api.dto.CreateTravelRequestDTO;
 import com.iim.service.persistency.api.entity.Concept;
 import com.iim.service.persistency.api.entity.Subtotal;
+import com.iim.service.persistency.api.entity.TravelRequest;
+import com.iim.service.persistency.api.entity.User;
 import com.iim.service.persistency.api.repository.ConceptRepository;
 import com.iim.service.persistency.api.repository.SubtotalRepository;
 import com.iim.service.persistency.api.repository.TravelRequestRepository;
 import com.iim.service.persistency.api.repository.UserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,13 +38,38 @@ public class TravelRequestServiceTest {
     private TravelRequestServiceImpl travelRequestService;
 
     @Test
-    void createTravelRequest_whenThereAreConcepts_ShouldSaveEntities() {
+    void createTravelRequest_whenThereAreConcepts_ShouldReturnTravelRequest() {
+        TravelRequest savedTravelRequest = buildTravelRequest();
+
         Mockito.when(userRepository.save(Mockito.any())).thenReturn(buildUser());
-        Mockito.when(travelRequestRepository.save(Mockito.any())).thenReturn(buildTravelRequest());
+        Mockito.when(travelRequestRepository.save(Mockito.any())).thenReturn(savedTravelRequest);
         Mockito.when(subtotalRepository.save(Mockito.any())).thenReturn(new Subtotal());
         Mockito.when(conceptRepository.save(Mockito.any())).thenReturn(new Concept());
 
-        travelRequestService.createTravelRequest(new CreateTravelRequestDTO());
+        TravelRequest returnedTravelRequest = travelRequestService.createTravelRequest(buildCreateTravelRequestDTO());
+
+        Assertions.assertNotNull(returnedTravelRequest);
+        Assertions.assertSame(savedTravelRequest, returnedTravelRequest);
+        Mockito.verify(userRepository).save(Mockito.any(User.class));
+        Mockito.verify(travelRequestRepository).save(Mockito.any(TravelRequest.class));
+        Mockito.verify(subtotalRepository).save(Mockito.any(Subtotal.class));
+        Mockito.verify(conceptRepository).save(Mockito.any(Concept.class));
     }
+
+    @Test
+    void createTravelRequest_whenThereAreNotConcepts_ShouldReturnTravelRequest() {
+        TravelRequest savedTravelRequest = buildTravelRequest();
+        
+        Mockito.when(userRepository.save(Mockito.any())).thenReturn(buildUser());
+        Mockito.when(travelRequestRepository.save(Mockito.any())).thenReturn(savedTravelRequest);
+
+        TravelRequest returnedTravelRequest = travelRequestService.createTravelRequest(buildCreateTravelRequestDTOWithNoConcepts());
+
+        Assertions.assertNotNull(returnedTravelRequest);
+        Assertions.assertSame(savedTravelRequest, returnedTravelRequest);
+        Mockito.verify(userRepository).save(Mockito.any(User.class));
+        Mockito.verify(travelRequestRepository).save(Mockito.any(TravelRequest.class));
+    }
+
 
 }

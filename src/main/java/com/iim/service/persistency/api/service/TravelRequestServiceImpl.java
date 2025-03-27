@@ -61,7 +61,7 @@ public class TravelRequestServiceImpl implements TravelRequestService{
     }
 
     private void saveConcepts(List<ConceptDTO> conceptDTOS, TravelRequest travelRequest) {
-        if (conceptDTOS.isEmpty())
+        if (conceptDTOS == null || conceptDTOS.isEmpty())
             return;
 
         for (ConceptDTO conceptDTO : conceptDTOS) {
@@ -77,7 +77,7 @@ public class TravelRequestServiceImpl implements TravelRequestService{
     }
 
     private Subtotal calculateSubtotals(List<ConceptDTO> concepts) {
-        if (concepts.isEmpty())
+        if (concepts == null || concepts.isEmpty())
             return null;
 
         Subtotal subtotal = new Subtotal();
