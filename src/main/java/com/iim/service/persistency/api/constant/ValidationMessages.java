@@ -21,4 +21,6 @@ public class ValidationMessages {
     public final static String NO_KINSHIP_MESSAGE = "Kinship of insurance is required";
 
     public final static String MAX_CONCEPT_LIST_SIZE_MESSAGE = "Concept list must contain max four elements";
+
+    public final static String SERIE_ALLOWED_VALUES_MESSAGE = "Allowed values for serie are: SV001 or SV1001";
 }

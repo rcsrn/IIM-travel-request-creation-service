@@ -2,6 +2,7 @@ package com.iim.service.persistency.api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -24,6 +25,7 @@ public class TravelRequestDTO {
 
     private String modality;
 
+    @Pattern(regexp = "^(SV001|SV1001)$", message = SERIE_ALLOWED_VALUES_MESSAGE)
     private String serie;
 
     @NotNull
