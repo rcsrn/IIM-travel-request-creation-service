@@ -4,6 +4,7 @@ import com.iim.service.persistency.api.dto.ConceptDTO;
 import com.iim.service.persistency.api.dto.CreateTravelRequestDTO;
 import com.iim.service.persistency.api.dto.TravelRequestDTO;
 import com.iim.service.persistency.api.dto.UserDTO;
+import com.iim.service.persistency.api.entity.Concept;
 import com.iim.service.persistency.api.entity.Subtotal;
 import com.iim.service.persistency.api.entity.TravelRequest;
 import com.iim.service.persistency.api.entity.User;
@@ -45,6 +46,14 @@ public class TestDataFactory {
 
     public static UserDTO buildUserDto() {
         return podamFactory.manufacturePojo(UserDTO.class);
+    }
+
+    public static TravelRequestDTO buildTravelRequestDto() {
+        return podamFactory.manufacturePojo(TravelRequestDTO.class);
+    }
+
+    public static ConceptDTO buildConceptDto() {
+        return podamFactory.manufacturePojo(ConceptDTO.class);
     }
 
 }
