@@ -4,16 +4,12 @@ import com.iim.service.persistency.api.dto.ConceptDTO;
 import com.iim.service.persistency.api.dto.CreateTravelRequestDTO;
 import com.iim.service.persistency.api.dto.TravelRequestDTO;
 import com.iim.service.persistency.api.dto.UserDTO;
-import com.iim.service.persistency.api.entity.Concept;
-import com.iim.service.persistency.api.entity.Subtotal;
 import com.iim.service.persistency.api.entity.TravelRequest;
 import com.iim.service.persistency.api.entity.User;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -56,4 +52,21 @@ public class TestDataFactory {
         return podamFactory.manufacturePojo(ConceptDTO.class);
     }
 
+    public static CreateTravelRequestDTO buildCompliantCreateTravelRequestDto() {
+        CreateTravelRequestDTO createTravelRequestDTO = podamFactory.manufacturePojo(CreateTravelRequestDTO.class);
+        List<ConceptDTO> conceptDTOS = createTravelRequestDTO.getConcepts();
+        conceptDTOS.clear();
+        for (int i = 0; i < 4; i++) {
+            conceptDTOS.add(generateCompliantConceptDto());
+        }
+        TravelRequestDTO travelRequestDTO = createTravelRequestDTO.getTravelRequestDTO();
+        travelRequestDTO.setSerie("SV1001");
+        return createTravelRequestDTO;
+    }
+
+    private static ConceptDTO generateCompliantConceptDto() {
+        ConceptDTO conceptDTO = podamFactory.manufacturePojo(ConceptDTO.class);
+        conceptDTO.setConceptType("CONACYT");
+        return conceptDTO;
+    }
 }

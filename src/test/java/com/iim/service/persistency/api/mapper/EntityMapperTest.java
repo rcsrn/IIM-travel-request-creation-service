@@ -9,8 +9,11 @@ import com.iim.service.persistency.api.entity.User;
 import com.iim.service.persistency.util.TestDataFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class EntityMapperTest {
 
     private final static EntityMapper mapper = Mappers.getMapper(EntityMapper.class);
