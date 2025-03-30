@@ -1,7 +1,6 @@
 package com.iim.service.persistency.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.iim.service.persistency.api.dto.CreateTravelRequestDTO;
 import com.iim.service.persistency.api.entity.TravelRequest;
 import com.iim.service.persistency.api.service.TravelRequestService;
@@ -20,8 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -80,6 +79,11 @@ public class TravelRequestControllerTest {
         response.andExpect(MockMvcResultMatchers.jsonPath("$.insuranceSecondLastName", CoreMatchers.is(travelRequest.getInsuranceSecondLastName())));
         response.andExpect(MockMvcResultMatchers.jsonPath("$.insuranceKinship", CoreMatchers.is(travelRequest.getInsuranceKinship())));
         response.andExpect(MockMvcResultMatchers.jsonPath("$.totalPrice").value(travelRequest.getTotalPrice()));
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.startDateRequest", CoreMatchers.is(getFormatDate(travelRequest.getStartDateRequest()))));
+    }
+
+    private String getFormatDate(LocalDateTime localDateTime) {
+        return DateTimeFormatter.ofPattern("dd-MM-YYYY").format(localDateTime);
     }
 
 }

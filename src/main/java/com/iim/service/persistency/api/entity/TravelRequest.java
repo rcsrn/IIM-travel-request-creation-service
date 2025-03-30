@@ -51,18 +51,22 @@ public class TravelRequest {
     @Column(name = "serie")
     private String serie;
 
+    @JsonFormat(pattern="dd-MM-YYYY")
     @NotNull
     @Column(name = "start_date_request")
     private LocalDateTime startDateRequest;
 
+    @JsonFormat(pattern="dd-MM-YYYY")
     @NotNull
     @Column(name = "end_date_request")
     private LocalDateTime endDateRequest;
 
+    @JsonFormat(pattern="dd-MM-YYYY")
     @NotNull
     @Column(name = "start_date_absence")
     private LocalDateTime startDateAbsence;
 
+    @JsonFormat(pattern="dd-MM-YYYY")
     @NotNull
     @Column(name = "end_date_absence")
     private LocalDateTime endDateAbsence;
