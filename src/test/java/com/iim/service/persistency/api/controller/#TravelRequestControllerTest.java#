@@ -1,0 +1,70 @@
+package com.iim.service.persistency.api.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iim.service.persistency.api.dto.CreateTravelRequestDTO;
+import com.iim.service.persistency.api.entity.TravelRequest;
+import com.iim.service.persistency.api.service.TravelRequestService;
+import com.iim.service.persistency.util.TestDataFactory;
+import org.hamcrest.CoreMatchers;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static com.iim.service.persistency.api.constant.Paths.baseUrl;
+
+@WebMvcTest(controllers = TravelRequestController.class)
+@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
+public class TravelRequestControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper mapper;
+
+    @MockitoBean
+    private TravelRequestService travelRequestService;
+
+    private static CreateTravelRequestDTO compliantCreateRequestDTO;
+
+    private static TravelRequest travelRequest;
+
+    @BeforeAll
+    static void init() {
+        compliantCreateRequestDTO = TestDataFactory.buildCompliantCreateTravelRequestDto();
+        travelRequest = TestDataFactory.buildTravelRequest();
+    }
+
+    @Test
+    void createTravelRequest_WhenItCompliesAllConstraints_ReturnedTravelRequest() throws Exception {
+        when(travelRequestService.createTravelRequest(any())).thenReturn(travelRequest);
+
+        ResultActions response = mockMvc.perform(post(baseUrl)
+						 .contentType(MediaType.APPLICATION_JSON)
+						 .content(mapper.writeValueAsString(compliantCreateRequestDTO)));
+
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.is(travelRequest.getId())));
+	response.andExpect(MockMvcResultMatchers.jsonPath("$.user.id", CoreMatchers.is(travelRequest.getUser().getId())));
+	response.andExpect(MockMvcResultMatchers.jsonPath("$.user.firstName", CoreMatchers.is(travelRequest.getUser().getFirstName())));
+	response.andExpect(MockMvcResultMatchers.jsonPath("$.user.secondName", CoreMatchers.is(travelRequest.getUser().getSecondName())));
+	response.andExpect(MockMvcResultMatchers.jsonPath("$.user.firstLastName", CoreMatchers.is(travelRequest.getUser().getFirstLastName())));
+	response.andExpect(MockMvcResultMatchers.jsonPath("$.user.secondLastName", CoreMatchers.is(travelRequest.getUser().getSecondLastName())));
+	response.andExpect(MockMvcResultMatchers.jsonPath("$.user.role", CoreMatchers.is(travelRequest.getUser().getRole())));
+	response.andExpect(MockMvcResultMatchers.jsonPath("$.user.role", CoreMatchers.is(travelRequest.getUser().getRole())));
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.user.role", CoreMatchers.is(travelRequest.getUser().getRole())));
+    }
+
+}

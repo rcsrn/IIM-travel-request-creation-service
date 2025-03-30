@@ -10,6 +10,8 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class TestDataFactory {
     public static TravelRequest buildTravelRequest() {
         TravelRequest travelRequest =  podamFactory.manufacturePojo(TravelRequest.class);
         travelRequest.setSerie("SV001");
+        travelRequest.setTotalPrice(new BigDecimal("1531.21"));
         return travelRequest;
     }
 
@@ -61,6 +64,7 @@ public class TestDataFactory {
         }
         TravelRequestDTO travelRequestDTO = createTravelRequestDTO.getTravelRequestDTO();
         travelRequestDTO.setSerie("SV1001");
+
         return createTravelRequestDTO;
     }
 
