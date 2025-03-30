@@ -59,6 +59,7 @@ public class TravelRequestControllerTest {
 						 .contentType(MediaType.APPLICATION_JSON)
 						 .content(mapper.writeValueAsString(compliantCreateRequestDTO)));
 
+        response.andExpect(MockMvcResultMatchers.status().isOk());
         response.andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.is(travelRequest.getId())));
 	    response.andExpect(MockMvcResultMatchers.jsonPath("$.user.id", CoreMatchers.is(travelRequest.getUser().getId())));
 	    response.andExpect(MockMvcResultMatchers.jsonPath("$.user.firstName", CoreMatchers.is(travelRequest.getUser().getFirstName())));
@@ -80,6 +81,9 @@ public class TravelRequestControllerTest {
         response.andExpect(MockMvcResultMatchers.jsonPath("$.insuranceKinship", CoreMatchers.is(travelRequest.getInsuranceKinship())));
         response.andExpect(MockMvcResultMatchers.jsonPath("$.totalPrice").value(travelRequest.getTotalPrice()));
         response.andExpect(MockMvcResultMatchers.jsonPath("$.startDateRequest", CoreMatchers.is(getFormatDate(travelRequest.getStartDateRequest()))));
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.endDateRequest", CoreMatchers.is(getFormatDate(travelRequest.getEndDateRequest()))));
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.startDateAbsence", CoreMatchers.is(getFormatDate(travelRequest.getStartDateAbsence()))));
+        response.andExpect(MockMvcResultMatchers.jsonPath("$.endDateAbsence", CoreMatchers.is(getFormatDate(travelRequest.getEndDateAbsence()))));
     }
 
     private String getFormatDate(LocalDateTime localDateTime) {
