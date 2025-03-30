@@ -52,7 +52,6 @@ public class TravelRequest {
     private String serie;
 
     @JsonFormat(pattern="dd-MM-YYYY")
-    @NotNull
     @Column(name = "start_date_request")
     private LocalDateTime startDateRequest;
 

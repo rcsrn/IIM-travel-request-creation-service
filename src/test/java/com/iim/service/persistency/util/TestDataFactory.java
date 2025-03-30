@@ -73,4 +73,8 @@ public class TestDataFactory {
         conceptDTO.setConceptType("CONACYT");
         return conceptDTO;
     }
+
+    public static CreateTravelRequestDTO buildNonCompliantCreateTravelRequestDto() {
+        return podamFactory.manufacturePojo(CreateTravelRequestDTO.class);
+    }
 }

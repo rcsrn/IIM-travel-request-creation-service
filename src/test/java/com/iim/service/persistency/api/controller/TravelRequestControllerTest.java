@@ -26,6 +26,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static com.iim.service.persistency.api.constant.Paths.baseUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(controllers = TravelRequestController.class)
 @AutoConfigureMockMvc
@@ -43,12 +44,15 @@ public class TravelRequestControllerTest {
 
     private static CreateTravelRequestDTO compliantCreateRequestDTO;
 
+    private static CreateTravelRequestDTO nonCompliantCreateRequestDTO;
+
     private static TravelRequest travelRequest;
 
     @BeforeAll
     static void init() {
         compliantCreateRequestDTO = TestDataFactory.buildCompliantCreateTravelRequestDto();
         travelRequest = TestDataFactory.buildTravelRequest();
+        nonCompliantCreateRequestDTO = TestDataFactory.buildNonCompliantCreateTravelRequestDto();
     }
 
     @Test
@@ -88,6 +92,18 @@ public class TravelRequestControllerTest {
 
     private String getFormatDate(LocalDateTime localDateTime) {
         return DateTimeFormatter.ofPattern("dd-MM-YYYY").format(localDateTime);
+    }
+
+    @Test
+    void createTravelRequest_WhenRequestHasNonCompliantFields_ReturnBadRequest() throws Exception{
+        when(travelRequestService.createTravelRequest(any())).thenReturn(travelRequest);
+
+        ResultActions response = mockMvc.perform(post(baseUrl)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(nonCompliantCreateRequestDTO)));
+
+        response.andDo(print());
+        response.andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
 }
