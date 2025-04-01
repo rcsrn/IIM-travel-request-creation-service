@@ -88,6 +88,8 @@ public class TravelRequestControllerTest {
         response.andExpect(MockMvcResultMatchers.jsonPath("$.endDateRequest", CoreMatchers.is(getFormatDate(travelRequest.getEndDateRequest()))));
         response.andExpect(MockMvcResultMatchers.jsonPath("$.startDateAbsence", CoreMatchers.is(getFormatDate(travelRequest.getStartDateAbsence()))));
         response.andExpect(MockMvcResultMatchers.jsonPath("$.endDateAbsence", CoreMatchers.is(getFormatDate(travelRequest.getEndDateAbsence()))));
+
+        response.andDo(print());
     }
 
     private String getFormatDate(LocalDateTime localDateTime) {
@@ -102,7 +104,6 @@ public class TravelRequestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(nonCompliantCreateRequestDTO)));
 
-        response.andDo(print());
         response.andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 

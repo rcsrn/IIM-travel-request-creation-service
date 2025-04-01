@@ -1,6 +1,8 @@
 package com.iim.service.persistency.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.iim.service.persistency.api.mapper.LocalDateTimeDeserializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -51,20 +53,24 @@ public class TravelRequest {
     @Column(name = "serie")
     private String serie;
 
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern="dd-MM-YYYY")
     @Column(name = "start_date_request")
     private LocalDateTime startDateRequest;
 
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern="dd-MM-YYYY")
     @NotNull
     @Column(name = "end_date_request")
     private LocalDateTime endDateRequest;
 
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern="dd-MM-YYYY")
     @NotNull
     @Column(name = "start_date_absence")
     private LocalDateTime startDateAbsence;
 
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern="dd-MM-YYYY")
     @NotNull
     @Column(name = "end_date_absence")
