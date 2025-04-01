@@ -12,8 +12,10 @@ import com.iim.service.persistency.api.repository.SubtotalRepository;
 import com.iim.service.persistency.api.repository.TravelRequestRepository;
 import com.iim.service.persistency.api.repository.UserRepository;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -33,13 +35,19 @@ public class TravelRequestServiceImpl implements TravelRequestService{
     @Autowired
     private SubtotalRepository subtotalRepository;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TravelRequestServiceImpl.class);
+
     private final static EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
     @Override
     public TravelRequest createTravelRequest(CreateTravelRequestDTO input) {
+        LOGGER.info("<<< Request: {} >>>>", input);
+
         User user = entityMapper.mapUserDtoToUser(input.getUserDTO());
         TravelRequest travelRequest = entityMapper.mapTravelRequestDtoToTravelRequest(input.getTravelRequestDTO());
         Subtotal subtotals = calculateSubtotals(input.getConcepts());
+
+        LOGGER.info("<<< Subtotals: {} >>>>", subtotals);
 
         if (subtotals != null)
             travelRequest.setTotalPrice(calculateTotal(subtotals));
@@ -73,7 +81,18 @@ public class TravelRequestServiceImpl implements TravelRequestService{
 
 
     private BigDecimal calculateTotal(Subtotal subtotals) {
-        return subtotals.getInscription().add(subtotals.getFare()).add(subtotals.getPerDiem());
+        BigDecimal count = new BigDecimal("0.0");
+
+        if (subtotals.getInscription() != null) {
+            count = count.add(subtotals.getInscription());
+        }
+        if (subtotals.getFare() != null) {
+            count = count.add(subtotals.getFare());
+        }
+        if (subtotals.getPerDiem() != null) {
+            count = count.add(subtotals.getPerDiem());
+        }
+        return count;
     }
 
     private Subtotal calculateSubtotals(List<ConceptDTO> concepts) {
