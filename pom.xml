@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.iim.service</groupId>
 	<artifactId>persistency</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<name>persistency</name>
 	<description>Service to persist information related to travel requests made by users</description>
 	<url/>
