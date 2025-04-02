@@ -48,14 +48,6 @@ public class TravelRequestController {
             return ResponseEntity.badRequest().body(errorMessages);
         }
 
-//        if (bindingResult.hasErrors()) {
-//            LOGGER.error("Errors! : {}", bindingResult.getAllErrors());
-//            List<String> errorMessages = bindingResult.getAllErrors().stream().
-//                    map(ObjectError::getDefaultMessage).
-//                    toList();
-//            return ResponseEntity.badRequest().body(errorMessages);
-//        }
-
         TravelRequest travelRequest = travelRequestService.createTravelRequest(createTravelRequestDTO);
 
         LOGGER.info("Created travel request: {}", travelRequest);

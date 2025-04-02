@@ -1,6 +1,7 @@
 package com.iim.service.persistence.api.dto;
 
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +19,12 @@ public class ConceptDTO {
     @Pattern(regexp = "^(IIM|PAPIIT|CONACYT|OTROS)$", message = CONCEPT_TYPE_ALLOWED_VALUES_MESSAGE)
     private String conceptType;
 
+    @Digits(integer=8, fraction=2)
     private BigDecimal inscription;
 
+    @Digits(integer=8, fraction=2)
     private BigDecimal fare;
 
+    @Digits(integer=8, fraction=2)
     private BigDecimal perDiem;
 }

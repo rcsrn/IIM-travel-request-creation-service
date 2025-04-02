@@ -31,7 +31,6 @@ public class TravelRequest {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @NotNull
     @Column(name = "type_request")
     private String type;
 
@@ -60,38 +59,31 @@ public class TravelRequest {
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern="dd-MM-YYYY")
-    @NotNull
     @Column(name = "end_date_request")
     private LocalDateTime endDateRequest;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern="dd-MM-YYYY")
-    @NotNull
     @Column(name = "start_date_absence")
     private LocalDateTime startDateAbsence;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern="dd-MM-YYYY")
-    @NotNull
     @Column(name = "end_date_absence")
     private LocalDateTime endDateAbsence;
 
-    @NotNull
     @Column(name = "insurance_first_name")
     private String insuranceFirstName;
 
     @Column(name = "insurance_second_name")
     private String insuranceSecondName;
 
-    @NotNull
     @Column(name = "insurance_first_last_name")
     private String insuranceFirstLastName;
 
-    @NotNull
     @Column(name = "insurance_second_last_name")
     private String insuranceSecondLastName;
 
-    @NotNull
     @Column(name = "insurance_kinship")
     private String insuranceKinship;
 

@@ -69,6 +69,9 @@ public class TestDataFactory {
     private static ConceptDTO generateCompliantConceptDto() {
         ConceptDTO conceptDTO = podamFactory.manufacturePojo(ConceptDTO.class);
         conceptDTO.setConceptType("CONACYT");
+        conceptDTO.setInscription(new BigDecimal("156131.38"));
+        conceptDTO.setFare(new BigDecimal("51115"));
+        conceptDTO.setPerDiem(new BigDecimal("26698.99"));
         return conceptDTO;
     }
 
