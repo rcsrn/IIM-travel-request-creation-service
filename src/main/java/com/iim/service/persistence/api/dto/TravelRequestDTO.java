@@ -28,20 +28,16 @@ public class TravelRequestDTO {
     @Pattern(regexp = "^(SV001|SV1001)$", message = SERIE_ALLOWED_VALUES_MESSAGE)
     private String serie;
 
-    @NotNull
-    @NotBlank(message = NO_START_REQUEST_DATE_MESSAGE)
+    @NotNull(message = NO_START_REQUEST_DATE_MESSAGE)
     private LocalDateTime startDateRequest;
 
-    @NotNull
-    @NotBlank(message = NO_END_REQUEST_DATE_MESSAGE)
+    @NotNull(message = NO_END_REQUEST_DATE_MESSAGE)
     private LocalDateTime endDateRequest;
 
-    @NotNull
-    @NotBlank(message = NO_START_ABSENCE_DATE_MESSAGE)
+    @NotNull(message = NO_START_ABSENCE_DATE_MESSAGE)
     private LocalDateTime startDateAbsence;
 
-    @NotNull
-    @NotBlank(message = NO_END_ABSENCE_DATE_MESSAGE)
+    @NotNull(message = NO_END_ABSENCE_DATE_MESSAGE)
     private LocalDateTime endDateAbsence;
 
     @NotNull

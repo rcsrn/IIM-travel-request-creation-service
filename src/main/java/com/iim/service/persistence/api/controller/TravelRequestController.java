@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,17 +36,25 @@ public class TravelRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createTravelRequest(@Valid @RequestBody CreateTravelRequestDTO createTravelRequestDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> createTravelRequest(@Valid @RequestBody CreateTravelRequestDTO createTravelRequestDTO, Errors errors) {
         LOGGER.info("Start Persistence Service");
         LOGGER.info("Received Request Body: {}", createTravelRequestDTO);
 
-        if (bindingResult.hasErrors()) {
-            LOGGER.error("Errors! : {}", bindingResult.getAllErrors());
-            List<String> errorMessages = bindingResult.getAllErrors().stream().
+        if (errors.hasErrors()) {
+            LOGGER.error("Errors! : {}", errors.getAllErrors());
+            List<String> errorMessages = errors.getAllErrors().stream().
                     map(ObjectError::getDefaultMessage).
                     toList();
             return ResponseEntity.badRequest().body(errorMessages);
         }
+
+//        if (bindingResult.hasErrors()) {
+//            LOGGER.error("Errors! : {}", bindingResult.getAllErrors());
+//            List<String> errorMessages = bindingResult.getAllErrors().stream().
+//                    map(ObjectError::getDefaultMessage).
+//                    toList();
+//            return ResponseEntity.badRequest().body(errorMessages);
+//        }
 
         TravelRequest travelRequest = travelRequestService.createTravelRequest(createTravelRequestDTO);
 

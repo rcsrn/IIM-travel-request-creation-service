@@ -9,17 +9,14 @@ import static com.iim.service.persistence.api.constant.ValidationMessages.*;
 @Data
 public class UserDTO {
 
-    @NotNull
     @NotBlank(message = NO_FIRST_NAME_MESSAGE)
     private String firstName;
 
     private String secondName;
 
-    @NotNull
     @NotBlank(message = NO_FIRST_LAST_NAME_MESSAGE)
     private String firstLastName;
 
-    @NotNull
     @NotBlank(message = NO_SECOND_LAST_NAME_MESSAGE)
     private String secondLastName;
 
