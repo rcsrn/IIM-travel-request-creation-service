@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.iim.service</groupId>
-	<artifactId>persistency</artifactId>
+	<artifactId>persistence</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
-	<name>persistency</name>
+	<name>persistence</name>
 	<description>Service to persist information related to travel requests made by users</description>
 	<url/>
 	<licenses>
