@@ -25,4 +25,8 @@ public class ValidationMessages {
     public final static String SERIE_ALLOWED_VALUES_MESSAGE = "Allowed values for serie are: SV001 or SV1001";
 
     public final static String CONCEPT_TYPE_ALLOWED_VALUES_MESSAGE = "Allowed values for cooncept type are: IIM, PAPIIT, CONACYT or OTROS";
+
+    public final static String NULL_USER_MESSAGE = "User cannot be null";
+
+    public final static String NULL_TRAVEL_REQUEST_MESSAGE = "Travel request cannot be null";
 }
