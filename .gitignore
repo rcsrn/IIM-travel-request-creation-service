@@ -35,3 +35,4 @@ build/
 
 ### Environment ###
 .env
+load_environment_variables.sh
