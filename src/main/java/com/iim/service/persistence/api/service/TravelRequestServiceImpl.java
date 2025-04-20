@@ -77,7 +77,6 @@ public class TravelRequestServiceImpl implements TravelRequestService{
         }
     }
 
-
     private BigDecimal calculateTotal(Subtotal subtotals) {
         BigDecimal count = new BigDecimal("0.0");
 
